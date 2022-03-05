@@ -1,5 +1,6 @@
 isRunning = True
 while isRunning:
-    if input("quit or not?(input q to quit)") == "q":
+    str = input("quit or not?(input q to quit)")
+    if str.lower() == "q":
         isRunning = False
 print('Loop ended.')
