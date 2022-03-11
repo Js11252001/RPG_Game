@@ -24,10 +24,15 @@ class Character:
     def attack(self):
         return random.randrange(1, self.strength + 1)
 
-    def defense(self, defen):
-        defen = random.randrange(1, 21)
-        if defen >= self.dexterity:
-            defen - self.attack()
+    '''
+    defense: take a value as an argument. Get a random number from 1-20 and 
+    if it is less than dexterity, nothing happens. Otherwise, subtract the attack value
+    It is confusing that what variable subtract the attack value
+    '''
+    def defense(self, val):
+        t = random.randrange(1, 21)
+        if t >= self.dexterity:
+            val - self.attack()
     
     def heal(self, val):
         self.hitpoints += val
