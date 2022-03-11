@@ -32,4 +32,13 @@ class Character:
     def heal(self, val):
         self.hitpoints += val
 
-
+if __name__ == "__main__":
+    c1 = Character(12,13,9,10,7,10)
+    c1.printHitpoints()
+    c1.printStats()
+    c1.attack()
+    c1.defense(10)
+    c1.heal(3)
+    print("___________________")
+    c1.printHitpoints()
+    c1.printStats()
