@@ -1,37 +1,26 @@
 import sys, pygame
-from item import *
 pygame.init()
 
-size = width, height = 640, 480
-faceSpeed = [5, 5]
-ballSpeed = [2, 2]
+size = width, height = 320, 240
+speed = [2, 2]
 black = (0, 0, 0)
-white = (255, 255, 255)
-blue = (0, 0, 120)
-backgroundColor = (100, 100, 100)
 
 screen = pygame.display.set_mode(size)
 
-ball = Item("intro_ball.gif", size, ballSpeed)
-face = Item("smileyTiny.png", size, faceSpeed)
-
-testSurface = pygame.Surface((50,50))
-testRect = pygame.Rect(0, 0, 50, 50)
-test = pygame.draw.rect(testSurface, blue, testRect)
+ball = pygame.image.load("intro_ball.gif")
+ballrect = ball.get_rect()
 
 isRunning = True
 while isRunning:
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
-  
-  ball.move()
-  face.move()
-  
 
-  screen.fill(backgroundColor)
-  ball.blit(screen)
-  face.blit(screen)
-  screen.blit(testSurface, testRect)
+  ballrect = ballrect.move(speed)
+  if ballrect.left < 0 or ballrect.right > width:
+    speed[0] = -speed[0]
+  if ballrect.top < 0 or ballrect.bottom > height:
+    speed[1] = -speed[1]
+
+  screen.fill(black)
+  screen.blit(ball, ballrect)
   pygame.display.flip()
-
-
