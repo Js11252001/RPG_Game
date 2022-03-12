@@ -38,8 +38,33 @@ class Character:
 
 class MagicCharacter(Character):
     def __init__(self, strength, dexterity, constitution, intelligence, wisdom, charisma):
-        super().__init__(strength, dexterity, constitution, intelligence, wisdom, charisma)
+        Character.__init__(self, strength, dexterity, constitution, intelligence, wisdom, charisma)
         self.mana = intelligence * 30 + 50
     
     def printHitpointsAndMana(self):
         print("hitpoints:", self.hitpoints, "mana:", self.mana)
+
+    def magicMissile(self):
+        self.mana -= 5
+        return random.randrange(5, 11)
+    def healMana(self, val):
+        self.mana += val
+    
+if __name__ == "__main__":
+    c1 = Character(12,13,9,10,7,10)
+    c1.printHitpoints()
+    c1.printStats()
+    c1.attack()
+    c1.defense(10)
+    c1.heal(3)
+    print("___________________")
+    c1.printHitpoints()
+    c1.printStats()
+    print("___________________")
+    m1 = MagicCharacter(10,2,4,1,10,5)
+    m1.printHitpointsAndMana()
+    c1.defense(m1.magicMissile())
+    m1.printHitpointsAndMana()
+    m1.healMana(5)
+    m1.printHitpointsAndMana()
+    c1.printHitpoints()
