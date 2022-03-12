@@ -29,6 +29,9 @@ class Character:
         if t >= self.dexterity:
             # val - self.attack()
             self.hitpoints -= val
+        else:
+            # I think not cause dmg is not right
+            self.hitpoints -= val/2
     
     def heal(self, val):
         self.hitpoints += val
