@@ -47,6 +47,11 @@ class MagicCharacter(Character):
     def magicMissile(self):
         self.mana -= 5
         return random.randrange(5, 11)
+
+    def fireball(self):
+        self.mana -= 10
+        return random.randrange(10, 21)
+    
     def healMana(self, val):
         self.mana += val
     
@@ -68,3 +73,6 @@ if __name__ == "__main__":
     m1.healMana(5)
     m1.printHitpointsAndMana()
     c1.printHitpoints()
+    c1.defense(m1.fireball())
+    c1.printHitpoints()
+    m1.printHitpointsAndMana()
