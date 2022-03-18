@@ -19,8 +19,10 @@ face = Item("smiley.png", [2,2], size[0], size[1])
 
 isRunning = True
 speed = 16
+speed1 = 16
 while isRunning:
   site = [0,0]
+  site1 = [0, 0]
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
     if event.type == pygame.KEYDOWN:
@@ -36,6 +38,14 @@ while isRunning:
             speed *= 2
         if event.key == pygame.K_DOWN:
             speed /= 2
+        if event.key == pygame.K_h:
+            site1[1] -= speed1
+        if event.key == pygame.K_j:
+            site1[1] += speed1
+        if event.key == pygame.K_k:
+            site1[0] -= speed1
+        if event.key == pygame.K_l:
+            site1[0] += speed1
 
   screen.fill(white)          
   if ball.rect.left >= 0 and ball.rect.right <= width and ball.rect.bottom >= 0 and ball.rect.top <= ball.height:    
@@ -44,8 +54,9 @@ while isRunning:
     textRect.center = (300,200)
     screen.blit(text,textRect)
   
-
+  # face dot't add bound check
+  face.rect = face.rect.move(site1)
 
   screen.blit(ball.object, ball.rect)
-  # screen.blit(face.object, face.rect)
+  screen.blit(face.object, face.rect)
   pygame.display.flip()
