@@ -1,4 +1,5 @@
 import sys, pygame
+from item import *
 pygame.init()
 
 size = width, height = 640, 480
@@ -9,29 +10,18 @@ white = (255, 255, 255)
 
 screen = pygame.display.set_mode(size)
 
-ball = pygame.image.load("intro_ball.gif")
-face = pygame.image.load("smiley.png")
-ballRect = ball.get_rect()
-faceRect = face.get_rect()
+ball = Item("intro_ball.gif", [2,2], size[0], size[1])
+face = Item("smiley.png", [1,1], size[0], size[1])
 
 isRunning = True
 while isRunning:
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
 
-  ballRect = ballRect.move(ballSpeed)
-  if ballRect.left < 0 or ballRect.right > width:
-    ballSpeed[0] = -ballSpeed[0]
-  if ballRect.top < 0 or ballRect.bottom > height:
-    ballSpeed[1] = -ballSpeed[1]
-
-  faceRect = faceRect.move(faceSpeed)
-  if faceRect.left < 0 or faceRect.right > width:
-    faceSpeed[0] = -faceSpeed[0]
-  if faceRect.top < 0 or faceRect.bottom > height:
-    faceSpeed[1] = -faceSpeed[1]
+  ball.move()
+  face.move()
 
   screen.fill(white)
-  screen.blit(ball, ballRect)
-  screen.blit(face, faceRect)
+  screen.blit(ball.object, ball.rect)
+  screen.blit(face.object, face.rect)
   pygame.display.flip()
