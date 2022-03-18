@@ -1,9 +1,10 @@
 import sys, pygame
 pygame.init()
 
-size = width, height = 320, 240
-speed = [2, 2]
-black = (0, 0, 0)
+size = width, height = 640, 480
+speed = [1, 1]
+gray = (156, 156, 156)
+white = (255, 255, 255)
 
 screen = pygame.display.set_mode(size)
 
@@ -21,6 +22,6 @@ while isRunning:
   if ballrect.top < 0 or ballrect.bottom > height:
     speed[1] = -speed[1]
 
-  screen.fill(black)
+  screen.fill(white)
   screen.blit(ball, ballrect)
   pygame.display.flip()
