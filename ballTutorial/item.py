@@ -10,8 +10,8 @@ class Item:
         self.rect = self.object.get_rect()
     
     def move(self):
-        rect = self.rect.move(self.speed)
-        if rect.left < 0 or rect.right > self.width:
+        self.rect = self.rect.move(self.speed)
+        if self.rect.left < 0 or self.rect.right > self.width:
             self.speed[0] = -self.speed[0]
-        if rect.top < 0 or rect.bottom > self.height:
+        if self.rect.top < 0 or self.rect.bottom > self.height:
             self.speed[1] = -self.speed[1]     
