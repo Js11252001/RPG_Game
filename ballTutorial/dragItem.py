@@ -22,7 +22,11 @@ while isRunning:
   mouseY = pygame.mouse.get_pos()[1]  
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
-    
+    if event.type == pygame.MOUSEMOTION:
+      if pygame.mouse.get_pressed(num_buttons=3)[0]:
+        if ball.rect.collidepoint(mouseX, mouseY):
+          ball.rect.centerx = mouseX
+          ball.rect.centery = mouseY
 
 
 
