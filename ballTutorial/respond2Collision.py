@@ -2,16 +2,14 @@ import sys, pygame
 from item import *
 pygame.init()
 
-size = width, height = 640, 480
-faceSpeed = [2, 2]
-ballSpeed = [1, 1]
+size = width, height = 1280, 960
 gray = (156, 156, 156)
 white = (255, 255, 255)
 
 screen = pygame.display.set_mode(size)
 
-ball = Item("intro_ball.gif", [2,2], size[0], size[1])
-face = Item("smileyTiny.png", [1,1], size[0], size[1])
+ball = Item("intro_ball.gif", [1,1], size[0], size[1])
+face = Item("smileyTiny.png", [2,1], size[0], size[1])
 
 isRunning = True
 while isRunning:
@@ -20,6 +18,8 @@ while isRunning:
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
 
+  if ball.rect.contains(face.rect):
+      
   ball.move()
   face.move()
   
