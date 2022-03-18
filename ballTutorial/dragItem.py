@@ -1,5 +1,3 @@
-import re
-from drawItem import *
 import sys, pygame
 from item import *
 pygame.init()
@@ -14,7 +12,6 @@ screen = pygame.display.set_mode(size)
 
 ball = Item("intro_ball.gif", [2,2], size[0], size[1])
 face = Item("smiley.png", [1,1], size[0], size[1])
-# xball = drawItem([1,1], size[0], size[1], screen)
 
 isRunning = True
 while isRunning:
