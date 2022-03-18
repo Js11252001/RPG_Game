@@ -11,7 +11,7 @@ screen = pygame.display.set_mode(size)
 
 ball = pygame.image.load("intro_ball.gif")
 face = pygame.image.load("smiley.png")
-ballrect = ball.get_rect()
+ballRect = ball.get_rect()
 faceRect = face.get_rect()
 
 isRunning = True
@@ -19,10 +19,10 @@ while isRunning:
   for event in pygame.event.get():
     if event.type == pygame.QUIT: sys.exit()
 
-  ballrect = ballrect.move(ballSpeed)
-  if ballrect.left < 0 or ballrect.right > width:
+  ballRect = ballRect.move(ballSpeed)
+  if ballRect.left < 0 or ballRect.right > width:
     ballSpeed[0] = -ballSpeed[0]
-  if ballrect.top < 0 or ballrect.bottom > height:
+  if ballRect.top < 0 or ballRect.bottom > height:
     ballSpeed[1] = -ballSpeed[1]
 
   faceRect = faceRect.move(faceSpeed)
@@ -32,6 +32,6 @@ while isRunning:
     faceSpeed[1] = -faceSpeed[1]
 
   screen.fill(white)
-  screen.blit(ball, ballrect)
+  screen.blit(ball, ballRect)
   screen.blit(face, faceRect)
   pygame.display.flip()
