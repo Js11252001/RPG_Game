@@ -14,4 +14,4 @@ class Item:
         if faceRect.left < 0 or faceRect.right > self.width:
             self.speed[0] = -self.speed[0]
         if faceRect.top < 0 or faceRect.bottom > self.height:
-            self.speed[1] = -self.speed[1]        
+            self.speed[1] = -self.speed[1]     
