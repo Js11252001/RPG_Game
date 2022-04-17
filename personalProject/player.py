@@ -1,8 +1,8 @@
 import pygame
 from setting import *
 
-class Player(pygame.sprite.Sprite, obstacleSprite):
-    def __init__(self, pos, groups):
+class Player(pygame.sprite.Sprite):
+    def __init__(self, pos, groups, obstacleSprite):
         super().__init__(groups)
         self.image = pygame.image.load('./graphics/test/player.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite, obstacleSprite):
         elif keys[pygame.K_DOWN]:
             self.direction.y = 1
         else:
-            self.direction = 0
+            self.direction.y = 0
         
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
@@ -35,6 +35,23 @@ class Player(pygame.sprite.Sprite, obstacleSprite):
         self.collision('horizontal')
         self.rect.y += self.direction.y * speed
         self.collision('vertical')
+
+    def collision(self, direction):
+        if direction == 'horizontal':
+            for sprite in self.obstacleSprite:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.x > 0: # move right
+                        self.rect.right = sprite.rect.left
+                    if self.direction.x < 0: # move left
+                        self.rect.left = sprite.rect.right
+        
+        if direction == 'vertical':
+            for sprite in self.obstacleSprite:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.y > 0: # move down
+                            self.rect.bottom = sprite.rect.top
+                    if self.direction.y < 0: # move up
+                            self.rect.top = sprite.rect.bottom
 
     def update(self):
         self.input()

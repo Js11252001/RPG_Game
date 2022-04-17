@@ -26,23 +26,6 @@ class Level:
                 if col == 'p':
                     self.player = Player((x,y), [self.visibleSprite], self.obstacleSprite)
 
-    def collision(self, direction):
-        if direction == 'horizontal':
-            for sprite in self.obstacleSprite:
-                if sprite.rect.colliderect(self.rect):
-                    if self.direction.x > 0: # move right
-                        self.rect.rigjt = sprite.rect.left
-                    if self.direction.x < 0: # move left
-                        self.rect.left = sprite.rect.right
-        
-        if direction == 'vertical':
-            for sprite in self.obstacleSprite:
-                if sprite.rect.colliderect(self.rect):
-                    if self.direction.y > 0: # move down
-                        self.rect.bottom = sprite.rect.top
-                    if self.direction.y < 0: # move up
-                        self.rect.top = sprite.rect.bottom
-
     def run(self):
         # update & draw
         self.visibleSprite.draw(self.display_surface)
