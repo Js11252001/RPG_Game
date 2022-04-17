@@ -24,8 +24,9 @@ class Level:
                 if col == 'x':
                     Tile((x,y), [self.visibleSprite, self.obstacleSprite])
                 if col == 'p':
-                    Player((x,y), [self.visibleSprite])
+                    self.player = Player((x,y), [self.visibleSprite])
 
     def run(self):
         # update & draw
         self.visibleSprite.draw(self.display_surface)
+        self.visibleSprite.update()
