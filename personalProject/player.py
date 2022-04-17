@@ -1,7 +1,7 @@
 import pygame
 from setting import *
 
-class Player(pygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite, obstacleSprite):
     def __init__(self, pos, groups):
         super().__init__(groups)
         self.image = pygame.image.load('./graphics/test/player.png').convert_alpha()
@@ -9,6 +9,7 @@ class Player(pygame.sprite.Sprite):
 
         self.direction = pygame.math.Vector2()
         self.speed = 5
+        self.obstacleSprite = obstacleSprite
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -30,7 +31,10 @@ class Player(pygame.sprite.Sprite):
     def move(self, speed):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
-        self.rect.center += self.direction * speed
+        self.rect.x += self.direction.x * speed
+        self.collision('horizontal')
+        self.rect.y += self.direction.y * speed
+        self.collision('vertical')
 
     def update(self):
         self.input()
