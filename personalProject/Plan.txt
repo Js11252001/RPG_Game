@@ -1,0 +1,3 @@
+TYPE: RPG
+Require: player & enemy & level
+Addition: particle & sound
