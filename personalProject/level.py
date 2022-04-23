@@ -46,6 +46,8 @@ class YSortCameraGroup(pygame.sprite.Group):
         # get offset
         self.offset.x = player.rect.centerx - self.halfWidth
         self.offset.y = player.rect.centery - self.halfHeight
-        for sprite in self.sprites():
+
+        # sort by y so that player have overlap
+        for sprite in sorted(self.sprites(), key = lambda sprite : sprite.rect.centery):
             offsetPos = sprite.rect.topleft - self.offset
             self.displaySurface.blit(sprite.image, offsetPos)
