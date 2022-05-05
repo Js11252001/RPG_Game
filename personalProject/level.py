@@ -5,6 +5,7 @@ from tile import Tile
 from player import Player
 from random import choice
 from weapon import Weapon
+from ui import UI
 
 class Level:
     def __init__(self):
@@ -21,6 +22,8 @@ class Level:
 
         # sprite setup
         self.createMap()
+        # user interface
+        self.ui = UI()
 
     def createMap(self):
         layouts = {
@@ -53,6 +56,7 @@ class Level:
         # update & draw
         self.visibleSprite.customDraw(self.player)
         self.visibleSprite.update()
+        self.ui.display(self.player)
     
     def createAttack(self):
         self.currentAttack = Weapon(self.player,[self.visibleSprite])
