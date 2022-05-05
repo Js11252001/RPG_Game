@@ -59,7 +59,7 @@ class Level:
 
     def destroyAttack(self):
         if self.currentAttack:
-            self.createAttack.kill()
+            self.currentAttack.kill()
         self.createAttack = None
 
 class YSortCameraGroup(pygame.sprite.Group):
