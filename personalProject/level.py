@@ -4,6 +4,7 @@ from support import *
 from tile import Tile
 from player import Player
 from random import choice
+from weapon import Weapon
 
 class Level:
     def __init__(self):
@@ -14,6 +15,9 @@ class Level:
         # spriteGruop setup
         self.visibleSprite = YSortCameraGroup()
         self.obstacleSprite = pygame.sprite.Group()
+
+        # attack sprite
+        self.currentAttack = None
 
         # sprite setup
         self.createMap()
@@ -43,12 +47,20 @@ class Level:
                             surf = graphics['objects'][int(col)]
                             Tile((x,y),[self.visibleSprite,self.obstacleSprite],'object',surf)
 
-        self.player = Player((2000, 1650), [self.visibleSprite], self.obstacleSprite)
+        self.player = Player((2000, 1650), [self.visibleSprite], self.obstacleSprite, self.createAttack, self.destroyAttack)
 
     def run(self):
         # update & draw
         self.visibleSprite.customDraw(self.player)
         self.visibleSprite.update()
+    
+    def createAttack(self):
+        self.currentAttack = Weapon(self.player,[self.visibleSprite])
+
+    def destroyAttack(self):
+        if self.currentAttack:
+            self.createAttack.kill()
+        self.createAttack = None
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):

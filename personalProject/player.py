@@ -1,9 +1,10 @@
+from tkinter.messagebox import NO
 import pygame 
 from setting import *
 from support import importFolder
 
 class Player(pygame.sprite.Sprite):
-	def __init__(self,pos,groups,obstacleSprites):
+	def __init__(self,pos,groups,obstacleSprites,createAttack,destroyAttack):
 		super().__init__(groups)
 		self.image = pygame.image.load('./graphics/test/player.png').convert_alpha()
 		self.rect = self.image.get_rect(topleft = pos)
@@ -21,8 +22,16 @@ class Player(pygame.sprite.Sprite):
 		self.attacking = False
 		self.attackCooldown = 400
 		self.attackTime = None
-
 		self.obstacle_sprites = obstacleSprites
+
+		# weapon
+		self.weaponIndex = 0
+		self.weapon = list(weaponData.keys())[self.weaponIndex]
+		self.createAttack = createAttack
+		self.destroyAttack = destroyAttack
+		self.canSwitchWeapon = True
+		self.weaponSwitchTime = None
+		self.switchDurationCooldown = 200
 
 	def importPlayerAssets(self):
 		character_path = './graphics/player/'
@@ -61,7 +70,7 @@ class Player(pygame.sprite.Sprite):
 			if keys[pygame.K_SPACE]:
 				self.attacking = True
 				self.attackTime = pygame.time.get_ticks()
-				print('attack')
+				self.createAttack()
 
 			# magic input 
 			if keys[pygame.K_LCTRL]:
@@ -69,6 +78,11 @@ class Player(pygame.sprite.Sprite):
 				self.attackTime = pygame.time.get_ticks()
 				print('magic')
 
+			if keys[pygame.K_q] and self.canSwitchWeapon:
+				self.canSwitchWeapon = False
+				self.weaponSwitchTime = pygame.time.get_ticks()
+				self.weaponIndex += 1
+				self.weapon = list(weaponData.keys())[self.weaponIndex]
 	def getStatus(self):
 
 		# idle status
@@ -116,11 +130,16 @@ class Player(pygame.sprite.Sprite):
 						self.hitbox.top = sprite.hitbox.bottom
 
 	def cooldowns(self):
-		current_time = pygame.time.get_ticks()
+		currentTime = pygame.time.get_ticks()
 
 		if self.attacking:
-			if current_time - self.attackTime >= self.attackCooldown:
+			if currentTime - self.attackTime >= self.attackCooldown:
 				self.attacking = False
+				self.destroyAttack()
+		
+		if not self.canSwitchWeapon:
+			if currentTime - self.weaponSwitchTime >= self.switchDurationCooldown:
+				self.canSwitchWeapon = True
 
 	def animate(self):
 		animation = self.animations[self.status]
