@@ -81,7 +81,10 @@ class Player(pygame.sprite.Sprite):
 			if keys[pygame.K_q] and self.canSwitchWeapon:
 				self.canSwitchWeapon = False
 				self.weaponSwitchTime = pygame.time.get_ticks()
-				self.weaponIndex += 1
+				if self.weaponIndex < len(list(weaponData.keys())) - 1:
+					self.weaponIndex += 1
+				else:
+					self.weaponIndex = 0
 				self.weapon = list(weaponData.keys())[self.weaponIndex]
 	def getStatus(self):
 
