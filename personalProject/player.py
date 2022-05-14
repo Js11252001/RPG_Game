@@ -1,4 +1,3 @@
-from tkinter.messagebox import NO
 import pygame 
 from setting import *
 from support import importFolder
