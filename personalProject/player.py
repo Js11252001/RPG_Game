@@ -18,7 +18,7 @@ class Player(Entity):
 		self.attacking = False
 		self.attackCooldown = 400
 		self.attackTime = None
-		self.obstacle_sprites = obstacleSprites
+		self.obstacleSprites = obstacleSprites
 
 		# weapon
 		self.weaponIndex = 0

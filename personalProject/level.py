@@ -6,6 +6,7 @@ from player import Player
 from random import choice
 from weapon import Weapon
 from ui import UI
+from enemy import Enemy
 
 class Level:
     def __init__(self):
@@ -30,6 +31,7 @@ class Level:
             'boudary': importCSVLayout('./map/map_FloorBlocks.csv'),
             'grass': importCSVLayout('./map/map_Grass.csv'),
 			'object': importCSVLayout('./map/map_Objects.csv'),
+            'entities': importCSVLayout('./map/map_Entities.csv')
         }
         graphics = {
 			'grass': importFolder('./graphics/grass'),
@@ -50,6 +52,22 @@ class Level:
                             surf = graphics['objects'][int(col)]
                             Tile((x,y),[self.visibleSprite,self.obstacleSprite],'object',surf)
 
+                        if style == 'entities':
+                            if col == '394':
+                                self.player = Player(
+									(x,y),
+									[self.visibleSprite],
+									self.obstacleSprite,
+									self.createAttack,
+									self.destroyAttack,
+									self.createMagic)
+                            else:
+                                if col == '390': monsterName = 'bamboo'
+                                elif col == '391': monsterName = 'spirit'
+                                elif col == '392': monsterName ='raccoon'
+                                else: monsterName = 'squid'
+                                Enemy(monsterName,(x,y),[self.visibleSprite],self.obstacleSprite)
+
         self.player = Player(
             (2000, 1650), 
             [self.visibleSprite], 
@@ -67,6 +85,7 @@ class Level:
         # update & draw
         self.visibleSprite.customDraw(self.player)
         self.visibleSprite.update()
+        self.visibleSprite.enemyUpdate(self.player)
         self.ui.display(self.player)
     
     def createAttack(self):
@@ -105,3 +124,8 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key = lambda sprite : sprite.rect.centery):
             offsetPos = sprite.rect.topleft - self.offset
             self.displaySurface.blit(sprite.image, offsetPos)
+
+    def enemyUpdate(self,player):
+        enemySprites = [sprite for sprite in self.sprites() if hasattr(sprite,'spriteType') and sprite.spriteType == 'enemy']
+        for enemy in enemySprites:
+            enemy.enemyUpdate(player)
