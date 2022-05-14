@@ -1,8 +1,9 @@
 import pygame 
 from setting import *
 from support import importFolder
+from entity import Entity
 
-class Player(pygame.sprite.Sprite):
+class Player(Entity):
 	def __init__(self,pos,groups,obstacleSprites,createAttack,destroyAttack,createMagic):
 		super().__init__(groups)
 		self.image = pygame.image.load('./graphics/test/player.png').convert_alpha()
@@ -12,12 +13,8 @@ class Player(pygame.sprite.Sprite):
 		# graphics setup
 		self.importPlayerAssets()
 		self.status = 'down'
-		self.frameIndex = 0
-		self.animationSpeed = 0.15
 
 		# movement 
-		self.direction = pygame.math.Vector2()
-		self.speed = 5
 		self.attacking = False
 		self.attackCooldown = 400
 		self.attackTime = None
@@ -141,23 +138,6 @@ class Player(pygame.sprite.Sprite):
 		self.hitbox.y += self.direction.y * speed
 		self.collision('vertical')
 		self.rect.center = self.hitbox.center
-
-	def collision(self,direction):
-		if direction == 'horizontal':
-			for sprite in self.obstacle_sprites:
-				if sprite.hitbox.colliderect(self.hitbox):
-					if self.direction.x > 0: # moving right
-						self.hitbox.right = sprite.hitbox.left
-					if self.direction.x < 0: # moving left
-						self.hitbox.left = sprite.hitbox.right
-
-		if direction == 'vertical':
-			for sprite in self.obstacle_sprites:
-				if sprite.hitbox.colliderect(self.hitbox):
-					if self.direction.y > 0: # moving down
-						self.hitbox.bottom = sprite.hitbox.top
-					if self.direction.y < 0: # moving up
-						self.hitbox.top = sprite.hitbox.bottom
 
 	def cooldowns(self):
 		currentTime = pygame.time.get_ticks()
