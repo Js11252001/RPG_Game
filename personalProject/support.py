@@ -2,21 +2,21 @@ from csv import reader
 from os import walk
 import pygame
 
-def importCSVLayout(path):
-    terrainMap =[]
-    with open(path) as levelMap:
-        layout = reader(levelMap,delimiter = ',')
-        for row in layout:
-            terrainMap.append(list(row))
-        return terrainMap
+def import_csv_layout(path):
+	terrain_map = []
+	with open(path) as level_map:
+		layout = reader(level_map,delimiter = ',')
+		for row in layout:
+			terrain_map.append(list(row))
+		return terrain_map
 
-def importFolder(path):
-	surfaceList = []
+def import_folder(path):
+	surface_list = []
 
-	for _,__,imgFiles in walk(path):
-		for image in imgFiles:
-			fullPath = path + '/' + image
-			imageSurf = pygame.image.load(fullPath).convert_alpha()
-			surfaceList.append(imageSurf)
+	for _,__,img_files in walk(path):
+		for image in img_files:
+			full_path = path + '/' + image
+			image_surf = pygame.image.load(full_path).convert_alpha()
+			surface_list.append(image_surf)
 
-	return surfaceList
+	return surface_list

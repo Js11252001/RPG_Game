@@ -1,12 +1,12 @@
 import pygame 
-from setting import *
+from settings import *
 
 class Tile(pygame.sprite.Sprite):
-	def __init__(self,pos,groups,spriteType,surface = pygame.Surface((TILESIZE,TILESIZE))):
+	def __init__(self,pos,groups,sprite_type,surface = pygame.Surface((TILESIZE,TILESIZE))):
 		super().__init__(groups)
-		self.spriteType = spriteType
+		self.sprite_type = sprite_type
 		self.image = surface
-		if spriteType == 'object':
+		if sprite_type == 'object':
 			self.rect = self.image.get_rect(topleft = (pos[0],pos[1] - TILESIZE))
 		else:
 			self.rect = self.image.get_rect(topleft = pos)
