@@ -10,11 +10,13 @@ class Game:
 		self.screen = pygame.display.set_mode((WIDTH,HEIGTH))
 		pygame.display.set_caption('Zelda')
 		self.clock = pygame.time.Clock()
-
 		self.level = Level()
 	
 	def run(self):
 		while True:
+			if self.level.player.health <= 0:
+				pygame.quit()
+				sys.exit()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					pygame.quit()
