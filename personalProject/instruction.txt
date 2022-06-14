@@ -1,0 +1,9 @@
+Move: KeyArrow
+Attack: Space
+Switch weapon: Q
+Switch magic: E
+Spread magic: LCtrl
+
+Menu: M
+Switch: KeyArrow Left and Right
+Upgrade: Space
